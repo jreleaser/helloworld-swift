@@ -1,9 +1,10 @@
 environment:
   properties:
     artifactsDir: out/jreleaser/assemble/helloworld/archive
-    buildDirmacOs: x86_64-apple-macosx
-    buildDirLinux: x86_64-unknown-linux-gnu
-    buildDir: '{{buildDirmacOs}}'
+    buildDirmacOSX64: x86_64-apple-macosx
+    buildDirmacOSARM64: arm64-apple-macosx
+    buildDirLinuxX64: x86_64-unknown-linux-gnu
+    buildDir: '{{buildDirmacOSX64}}'
 
 project:
   name: helloworld
@@ -47,5 +48,7 @@ distributions:
     artifacts:
       - path: '{{artifactsDir}}/{{distributionName}}-{{projectVersion}}-osx-x86_64.zip'
         platform: 'osx-x86_64'
+      - path: '{{artifactsDir}}/{{distributionName}}-{{projectVersion}}-osx-aarch_64.zip'
+        platform: 'osx-aarch_64'
       - path: '{{artifactsDir}}/{{distributionName}}-{{projectVersion}}-linux-x86_64.zip'
         platform: 'linux-x86_64'

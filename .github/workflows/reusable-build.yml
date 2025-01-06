@@ -13,25 +13,25 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macOS-latest]
+        os: [ubuntu-latest, macos-13, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         
       - name: Setup Swift
-        uses: swift-actions/setup-swift@v1
+        uses: swift-actions/setup-swift@v2
         with:
           swift-version: '5'
 
       - name: Build
         shell: bash
-        run: swift build  
+        run: swift build
           
       - name: Assemble
         uses: jreleaser/release-action@v2
         with:
-          arguments: assemble -PbuildDir="{{ buildDir${{ runner.os}} }}"
+          arguments: assemble -PbuildDir="{{ buildDir${{ runner.os}}${{ runner.arch }} }}"
         env:
           JRELEASER_PROJECT_VERSION: ${{ inputs.version }}
           JRELEASER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
